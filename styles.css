@@ -1,161 +1,249 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
+    font-family: 'Roboto', sans-serif; /* Example web font */
+    margin: 0;
+    background-color: #f8f9fa; /* Light grey background */
+    color: #343a40; /* Dark grey text */
+    line-height: 1.6; /* Improved readability */
 }
 
 #background-wrapper {
-    min-height: 100%;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    min-height: 100vh; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
 }
 
 header {
-    background-color: #333;
+    background-color: #007bff; /* Blue header */
     color: #fff;
+    padding: 1.5rem 0;
+    width: 100%;
     text-align: center;
-    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 main {
-    max-width: 800px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    padding: 2rem;
-    margin: 2rem auto;
+    width: 80%; 
+    max-width: 960px;
+    margin: 20px auto; 
+    padding: 20px;
+    background-color: #fff; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    border-radius: 8px; 
 }
 
-.input-group {
-    margin-bottom: 1rem;
-}
-
-label {
-    display: inline-block;
-    margin-bottom: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 2px 5px;
-    border-radius: 3px;
-}
-
-input[type="text"],
-textarea {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-textarea {
-    height: 100px;
-}
-
-button {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-button:hover {
-    background-color: #555;
-}
-
-.char-count {
-    font-size: 0.8rem;
-    color: #666;
-    margin-left: 0.5rem;
-}
-
-#dialogue-preview {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 1rem;
-    margin-top: 1rem;
-}
-
-#profile-picture-preview {
-    max-width: 200px;
-    max-height: 200px;
-    margin-top: 1rem;
-}
-
-#profile-picture-preview img {
-    max-width: 100%;
-    max-height: 100%;
-}
-
-#generated-profile {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 1rem;
-    margin-top: 1rem;
-}
-
-#delete-and-reset {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-}
-
-#delete-character-section {
-    margin-bottom: 2rem;
-}
-
-#reset-section {
-    text-align: center;
-}
-
-#reset-all-btn {
-    background-color: #d9534f;
-    color: white;
-    font-size: 1.2em;
-    padding: 10px 20px;
-}
-
-#reset-all-btn:hover {
-    background-color: #c9302c;
-}
-
-#character-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.saved-character {
-    cursor: pointer;
-    transition: transform 0.2s;
-    margin: 10px;
-}
-
-.saved-character:hover {
-    transform: scale(1.05);
-}
-
-.saved-character span {
-    display: block;
-    text-align: center;
-    margin-top: 5px;
-}
-
-#character-select {
-    margin-right: 1rem;
+section {
+    margin-bottom: 30px; /* Increased spacing */
+    padding: 20px; /* Added padding to sections */
+    border: 1px solid #ddd; /* Subtle border */
+    border-radius: 8px; 
+    background-color: #f9f9f9; /* Light background for sections */
 }
 
 h2 {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 5px;
-    border-radius: 5px;
+    color: #343a40;
+    font-weight: 700; 
+    margin-bottom: 15px; /* Increased spacing */
+    border-bottom: none; /* Removed underline */
+}
+
+/* Input Groups */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left; 
+}
+
+/* Input Groups in Image Upload Section */
+#image-upload .input-group {
+    display: flex; 
+    align-items: center; 
+    gap: 15px; /* Increased spacing */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px; /* Increased spacing */
+    font-weight: 600; /* Slightly less bold */
+}
+
+/* Labels in Image Upload Section */
+#image-upload label {
+    width: 160px; /* Increased width */
+}
+
+input[type="text"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px; /* Increased padding */
+    border: 1px solid #ced4da; /* Lighter border color */
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Input and Select in Image Upload Section */
+#image-upload input[type="file"], 
+#image-upload select {
+    flex-grow: 1; 
+}
+
+textarea {
+    height: 120px; /* Increased height */
+}
+
+.char-count {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #6c757d; /* Grey text color */
+}
+
+/* Buttons (Updated) */
+#image-upload button {
+    background-color: #28a745; /* Green for Image Upload */
+    color: #fff;
+    border: none;
+    padding: 12px 20px; /* Increased padding */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform transition */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+#create-character button {
+    background-color: #007bff; /* Blue for Create Character */
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+#character-info button {
+    background-color: #dc3545; /* Red for Character Info */
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+#dialogue-creator button {
+    background-color: #ffc107; /* Yellow for Dialogue Creator */
+    color: #212529; /* Dark grey text on yellow background */
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+#generate-section button {
+    background-color: #6f42c1; /* Purple for Generate Section */
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+#delete-and-reset button { 
+    background-color: #6c757d; /* Grey for Delete and Reset */
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+/* Buttons (General - Hover Effect) */
+button:hover {
+    background-color: darken(button.background-color, 10%); /* Darken on hover */
+    transform: scale(1.05); /* Scale up slightly on hover */
+}
+
+/* Dialogue Preview */
+#dialogue-preview {
+    background-color: #f2f2f2; /* Lighter grey background */
+    padding: 15px; /* Increased padding */
+    border: 1px solid #e0e0e0; /* Lighter border color */
+    border-radius: 4px;
+    margin-top: 15px; /* Increased spacing */
+    white-space: pre-wrap; 
+    font-family: 'Courier New', monospace; /* Monospace font for dialogue */
+}
+
+/* Generated Profile */
+#generated-profile {
+    background-color: #f2f2f2;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+/* Saved Characters */
+.saved-character {
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 4px;
+    cursor: pointer; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Added box-shadow transition */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); /* Subtle shadow */
+}
+
+.saved-character:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23); /* More pronounced shadow on hover */
+}
+
+/* Profile Picture Preview */
+#profile-picture-preview {
+    max-width: 200px; 
+    max-height: 200px; 
+    overflow: hidden; 
+    margin-bottom: 20px; /* Added margin */
+    border: 1px solid #ddd; /* Added border */
+    border-radius: 8px; 
+}
+
+#profile-picture-preview img {
+    width: 100%; 
+    height: auto; 
+    display: block; 
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    main {
+        width: 90%; 
+    }
+
+    #image-upload .input-group {
+        flex-direction: column; 
+    }
+
+    #image-upload label {
+        width: 100%; 
+    }
 }
