@@ -1,88 +1,129 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Module for Character Input and Validation
+const characterInput = (() => {
     const charCounters = document.querySelectorAll('.char-count');
     const copyButtons = document.querySelectorAll('.copy-btn');
+
+    function init() {
+        charCounters.forEach(counter => {
+            const input = counter.previousElementSibling;
+            input.addEventListener('input', () => {
+                const count = input.value.length;
+                const max = input.getAttribute('maxlength');
+                counter.textContent = `${count}/${max}`;
+                if (count >= max) {
+                    counter.style.color = 'red';
+                } else {
+                    counter.style.color = '#666';
+                }
+            });
+        });
+
+        copyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                targetElement.select();
+                document.execCommand('copy');
+                alert('Copied to clipboard!');
+            });
+        });
+    }
+
+    return {
+        init: init
+    };
+})();
+
+// Module for Dialogue Management
+const dialogueManager = (() => {
     const addDialogueBtn = document.getElementById('add-dialogue');
     const clearDialogueBtn = document.getElementById('clear-dialogue');
+
+    function init() {
+        addDialogueBtn.addEventListener('click', () => {
+            const userInput = document.getElementById('user-input').value;
+            const characterInput = document.getElementById('character-input').value;
+            const dialoguePreview = document.getElementById('dialogue-preview');
+            const formattedDialogue = `{{User}}: ${userInput}\n{{Char}}: ${characterInput}\n\n`;
+            dialoguePreview.textContent += formattedDialogue;
+
+            const definitionTextarea = document.getElementById('definition');
+            definitionTextarea.value += formattedDialogue;
+            updateCharCount(definitionTextarea);
+        });
+
+        clearDialogueBtn.addEventListener('click', () => {
+            document.getElementById('user-input').value = '';
+            document.getElementById('character-input').value = '';
+            document.getElementById('dialogue-preview').textContent = '';
+        });
+    }
+
+    function updateCharCount(element) {
+        const count = element.value.length;
+        const max = element.getAttribute('maxlength');
+        const counter = element.nextElementSibling;
+        counter.textContent = `${count}/${max}`;
+        if (count >= max) {
+            counter.style.color = 'red';
+        } else {
+            counter.style.color = '#666';
+        }
+    }
+
+    return {
+        init: init
+    };
+})();
+
+// Module for Background and Profile Picture Handling
+const imageHandler = (() => {
     const backgroundImageInput = document.getElementById('background-image');
     const resetBackgroundBtn = document.getElementById('reset-background');
     const profilePictureInput = document.getElementById('profile-picture');
     const removeProfilePictureBtn = document.getElementById('remove-profile-picture');
-    const generateBtn = document.getElementById('generate-btn');
-    const saveBtn = document.getElementById('save-btn');
-    const copyProfileBtn = document.getElementById('copy-profile-btn');
-    const generatedProfile = document.getElementById('generated-profile');
-    const characterList = document.getElementById('character-list');
-    const characterSelect = document.getElementById('character-select');
-    const deleteCharacterBtn = document.getElementById('delete-character-btn');
-    const resetAllBtn = document.getElementById('reset-all-btn');
     const backgroundWrapper = document.getElementById('background-wrapper');
 
-    // Character count
-    charCounters.forEach(counter => {
-        const input = counter.previousElementSibling;
-        input.addEventListener('input', () => {
-            const count = input.value.length;
-            const max = input.getAttribute('maxlength');
-            counter.textContent = `${count}/${max}`;
-            if (count >= max) {
-                counter.style.color = 'red';
-            } else {
-                counter.style.color = '#666';
+    function init() {
+        backgroundImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    backgroundWrapper.style.backgroundImage = `url(${e.target.result})`;
+                    updateBackgroundStyle();
+                };
+                reader.readAsDataURL(file);
             }
         });
-    });
 
-    // Copy buttons
-    copyButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetId = button.getAttribute('data-target');
-            const targetElement = document.getElementById(targetId);
-            targetElement.select();
-            document.execCommand('copy');
-            alert('Copied to clipboard!');
+        resetBackgroundBtn.addEventListener('click', () => {
+            backgroundWrapper.style.backgroundImage = 'none';
+            backgroundWrapper.style.backgroundAttachment = 'scroll';
+            backgroundImageInput.value = '';
         });
-    });
 
-    // Dialogue creator
-    addDialogueBtn.addEventListener('click', () => {
-        const userInput = document.getElementById('user-input').value;
-        const characterInput = document.getElementById('character-input').value;
-        const dialoguePreview = document.getElementById('dialogue-preview');
-        const formattedDialogue = `{{User}}: ${userInput}\n{{Char}}: ${characterInput}\n\n`;
-        dialoguePreview.textContent += formattedDialogue;
+        document.getElementById('background-style').addEventListener('change', updateBackgroundStyle);
 
-        const definitionTextarea = document.getElementById('definition');
-        definitionTextarea.value += formattedDialogue;
-        updateCharCount(definitionTextarea);
-    });
+        profilePictureInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const preview = document.getElementById('profile-picture-preview');
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Profile Picture">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
-    clearDialogueBtn.addEventListener('click', () => {
-        document.getElementById('user-input').value = '';
-        document.getElementById('character-input').value = '';
-        document.getElementById('dialogue-preview').textContent = '';
-    });
+        removeProfilePictureBtn.addEventListener('click', () => {
+            document.getElementById('profile-picture-preview').innerHTML = '';
+            profilePictureInput.value = '';
+        });
 
-    // Background image
-    backgroundImageInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                backgroundWrapper.style.backgroundImage = `url(${e.target.result})`;
-                updateBackgroundStyle();
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    resetBackgroundBtn.addEventListener('click', () => {
-        backgroundWrapper.style.backgroundImage = 'none';
-        backgroundWrapper.style.backgroundAttachment = 'scroll';
-        backgroundImageInput.value = '';
-    });
-
-    // Background style
-    document.getElementById('background-style').addEventListener('change', updateBackgroundStyle);
+        updateBackgroundStyle(); // Initial background style setup
+    }
 
     function updateBackgroundStyle() {
         const backgroundStyle = document.getElementById('background-style').value;
@@ -91,50 +132,24 @@ document.addEventListener('DOMContentLoaded', () => {
         backgroundWrapper.style.backgroundPosition = 'center';
     }
 
-    // Profile picture
-    profilePictureInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const preview = document.getElementById('profile-picture-preview');
-                preview.innerHTML = `<img src="${e.target.result}" alt="Profile Picture">`;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+    return {
+        init: init
+    };
+})();
 
-    removeProfilePictureBtn.addEventListener('click', () => {
-        document.getElementById('profile-picture-preview').innerHTML = '';
-        profilePictureInput.value = '';
-    });
+// Module for Character Saving and Loading
+const characterStorage = (() => {
+    const saveBtn = document.getElementById('save-btn');
+    const characterList = document.getElementById('character-list');
+    const characterSelect = document.getElementById('character-select');
+    const deleteCharacterBtn = document.getElementById('delete-character-btn');
 
-    generateBtn.addEventListener('click', generateProfile);
-    saveBtn.addEventListener('click', saveCharacter);
-    copyProfileBtn.addEventListener('click', copyGeneratedProfile);
-    deleteCharacterBtn.addEventListener('click', deleteSelectedCharacter);
-    resetAllBtn.addEventListener('click', resetAll);
+    function init() {
+        saveBtn.addEventListener('click', saveCharacter);
+        deleteCharacterBtn.addEventListener('click', deleteSelectedCharacter);
 
-    function generateProfile() {
-        const name = document.getElementById('character-name').value;
-        const tagline = document.getElementById('tagline').value;
-        const description = document.getElementById('description').value;
-        const greeting = document.getElementById('greeting').value;
-        const definition = document.getElementById('definition').value;
-        const profilePic = document.querySelector('#profile-picture-preview img');
-
-        let profileHTML = '';
-        if (profilePic) {
-            profileHTML += `<img src="${profilePic.src}" alt="Profile Picture" style="max-width: 200px; max-height: 200px;"><br>`;
-        }
-        profileHTML += `<strong>Name:</strong> ${name}<br>`;
-        profileHTML += `<strong>Tagline:</strong> ${tagline}<br>`;
-        profileHTML += `<strong>Description:</strong> ${description}<br>`;
-        profileHTML += `<strong>Greeting:</strong> ${greeting}<br>`;
-        profileHTML += `<strong>Definition:</strong> ${definition}<br>`;
-
-        generatedProfile.innerHTML = profileHTML;
-        copyProfileBtn.style.display = 'inline-block';
+        updateCharacterList();
+        updateCharacterSelect();
     }
 
     function saveCharacter() {
@@ -159,16 +174,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCharacterList();
         updateCharacterSelect();
         alert(`Character "${character.name}" has been saved.`);
-    }
-
-    function copyGeneratedProfile() {
-        const range = document.createRange();
-        range.selectNode(generatedProfile);
-        window.getSelection().removeAllRanges();
-        window.getSelection().addRange(range);
-        document.execCommand('copy');
-        window.getSelection().removeAllRanges();
-        alert('Profile copied to clipboard!');
     }
 
     function updateCharacterList() {
@@ -260,6 +265,67 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    return {
+        init: init
+    };
+})();
+
+// Module for Profile Generation and Copying
+const profileGenerator = (() => {
+    const generateBtn = document.getElementById('generate-btn');
+    const copyProfileBtn = document.getElementById('copy-profile-btn');
+    const generatedProfile = document.getElementById('generated-profile');
+
+    function init() {
+        generateBtn.addEventListener('click', generateProfile);
+        copyProfileBtn.addEventListener('click', copyGeneratedProfile);
+    }
+
+    function generateProfile() {
+        const name = document.getElementById('character-name').value;
+        const tagline = document.getElementById('tagline').value;
+        const description = document.getElementById('description').value;
+        const greeting = document.getElementById('greeting').value;
+        const definition = document.getElementById('definition').value;
+        const profilePic = document.querySelector('#profile-picture-preview img');
+
+        let profileHTML = '';
+        if (profilePic) {
+            profileHTML += `<img src="${profilePic.src}" alt="Profile Picture" style="max-width: 200px; max-height: 200px;"><br>`;
+        }
+        profileHTML += `<strong>Name:</strong> ${name}<br>`;
+        profileHTML += `<strong>Tagline:</strong> ${tagline}<br>`;
+        profileHTML += `<strong>Description:</strong> ${description}<br>`;
+        profileHTML += `<strong>Greeting:</strong> ${greeting}<br>`;
+        profileHTML += `<strong>Definition:</strong> ${definition}<br>`;
+
+        generatedProfile.innerHTML = profileHTML;
+        copyProfileBtn.style.display = 'inline-block';
+    }
+
+    function copyGeneratedProfile() {
+        const range = document.createRange();
+        range.selectNode(generatedProfile);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        alert('Profile copied to clipboard!');
+    }
+
+    return {
+        init: init
+    };
+})();
+
+// Module for Reset Functionality
+const resetManager = (() => {
+    const resetAllBtn = document.getElementById('reset-all-btn');
+
+    function init() {
+        resetAllBtn.addEventListener('click', resetAll);
+    }
+
     function resetAll() {
         const inputs = [
             'character-name',
@@ -292,20 +358,17 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('All fields have been reset.');
     }
 
-    function updateCharCount(element) {
-        const count = element.value.length;
-        const max = element.getAttribute('maxlength');
-        const counter = element.nextElementSibling;
-        counter.textContent = `${count}/${max}`;
-        if (count >= max) {
-            counter.style.color = 'red';
-        } else {
-            counter.style.color = '#666';
-        }
-    }
+    return {
+        init: init
+    };
+})();
 
-    // Initialize the character list and select
-    updateCharacterList();
-    updateCharacterSelect();
-    updateBackgroundStyle();
+// Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    characterInput.init();
+    dialogueManager.init();
+    imageHandler.init();
+    characterStorage.init();
+    profileGenerator.init();
+    resetManager.init();
 });
