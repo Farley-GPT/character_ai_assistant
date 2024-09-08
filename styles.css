@@ -1,0 +1,161 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+
+#background-wrapper {
+    min-height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+main {
+    max-width: 800px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 2rem auto;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    height: 100px;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.char-count {
+    font-size: 0.8rem;
+    color: #666;
+    margin-left: 0.5rem;
+}
+
+#dialogue-preview {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+#profile-picture-preview {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 1rem;
+}
+
+#profile-picture-preview img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#generated-profile {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+#delete-and-reset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+#delete-character-section {
+    margin-bottom: 2rem;
+}
+
+#reset-section {
+    text-align: center;
+}
+
+#reset-all-btn {
+    background-color: #d9534f;
+    color: white;
+    font-size: 1.2em;
+    padding: 10px 20px;
+}
+
+#reset-all-btn:hover {
+    background-color: #c9302c;
+}
+
+#character-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.saved-character {
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin: 10px;
+}
+
+.saved-character:hover {
+    transform: scale(1.05);
+}
+
+.saved-character span {
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+}
+
+#character-select {
+    margin-right: 1rem;
+}
+
+h2 {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 5px;
+}

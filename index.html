@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character.AI Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="background-wrapper">
+        <header>
+            <h1>Character.AI Assistant</h1>
+        </header>
+        <main>
+            <section id="image-upload">
+                <h2>Image Upload</h2>
+                <div class="input-group">
+                    <label for="background-image">Background Image:</label>
+                    <input type="file" id="background-image" accept="image/*">
+                    <button id="reset-background">Reset Background</button>
+                </div>
+                <div class="input-group">
+                    <label for="background-style">Background Style:</label>
+                    <select id="background-style">
+                        <option value="scroll">Scroll with content</option>
+                        <option value="fixed">Fixed to screen</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="profile-picture">Profile Picture:</label>
+                    <input type="file" id="profile-picture" accept="image/*">
+                    <button id="remove-profile-picture">Remove Profile Picture</button>
+                </div>
+                <div id="profile-picture-preview"></div>
+            </section>
+            <section id="character-info">
+                <div class="input-group">
+                    <label for="character-name">Character Name (20 chars max):</label>
+                    <input type="text" id="character-name" maxlength="20">
+                    <span class="char-count">0/20</span>
+                    <button class="copy-btn" data-target="character-name">Copy</button>
+                </div>
+                <div class="input-group">
+                    <label for="tagline">Tagline (50 chars max):</label>
+                    <input type="text" id="tagline" maxlength="50">
+                    <span class="char-count">0/50</span>
+                    <button class="copy-btn" data-target="tagline">Copy</button>
+                </div>
+                <div class="input-group">
+                    <label for="description">Description (500 chars max):</label>
+                    <textarea id="description" maxlength="500"></textarea>
+                    <span class="char-count">0/500</span>
+                    <button class="copy-btn" data-target="description">Copy</button>
+                </div>
+                <div class="input-group">
+                    <label for="greeting">Greeting (2,048 chars max):</label>
+                    <textarea id="greeting" maxlength="2048"></textarea>
+                    <span class="char-count">0/2048</span>
+                    <button class="copy-btn" data-target="greeting">Copy</button>
+                </div>
+                <div class="input-group">
+                    <label for="definition">Definition (32,000 chars max):</label>
+                    <textarea id="definition" maxlength="32000"></textarea>
+                    <span class="char-count">0/32000</span>
+                    <button class="copy-btn" data-target="definition">Copy</button>
+                </div>
+            </section>
+            <section id="dialogue-creator">
+                <h2>Dialogue Creator</h2>
+                <div class="input-group">
+                    <label for="user-input">User:</label>
+                    <input type="text" id="user-input">
+                </div>
+                <div class="input-group">
+                    <label for="character-input">Character:</label>
+                    <input type="text" id="character-input">
+                </div>
+                <button id="add-dialogue">Add Dialogue</button>
+                <button id="clear-dialogue">Clear</button>
+                <div id="dialogue-preview"></div>
+            </section>
+            <section id="generate-section">
+                <button id="generate-btn">Generate Profile</button>
+                <button id="save-btn">Save Character</button>
+                <div id="generated-profile"></div>
+                <button id="copy-profile-btn" style="display: none;">Copy Profile</button>
+            </section>
+            <section id="saved-characters">
+                <h2>Saved Characters</h2>
+                <div id="character-list"></div>
+            </section>
+            <div id="delete-and-reset">
+                <section id="delete-character-section">
+                    <h2>Delete Characters</h2>
+                    <select id="character-select"></select>
+                    <button id="delete-character-btn">Delete</button>
+                </section>
+                <section id="reset-section">
+                    <button id="reset-all-btn">Reset All</button>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
